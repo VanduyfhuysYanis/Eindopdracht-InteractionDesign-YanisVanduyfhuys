@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/screen.css" />
+    <script defer src="./script/main.js"></script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light mb-5">
+      <a class="navbar-brand" href="#">Home</a>
+      <img class="navbar-logo" src="images/logo.png" alt="Anume Icon" />
+      <a class="navbar-brand" href="#">About</a>
+    </nav>
 
+    <div class="container border">
+      <h2>Anime info retriever</h2>
+      <div class="search-container row justify-content-center">
+        <div class="search-dropdown-container">
+            <input type="text" id="criteria-input" class="search-input" placeholder="Title" />
+            <div id="anime-dropdown" class="anime-dropdown"></div>
+            <button class="js-fetch-anime search-button"><i class="bi bi-search"></i></button>
+          </div>
+          <p class="js-error-message"></p>
+      </div>
+
+      <div class="js-anime-info">
+        <h2>Anime Information</h2>
+        <p><strong>Title:</strong> <span class="js-anime-title"></span></p>
+        <p><strong>Synopsis:</strong> <span class="js-anime-synopsis"></span></p>
+        <p><strong>Rating:</strong> <span class="js-anime-rating"></span></p>
+        <p><strong>Start Date:</strong> <span class="js-anime-start-date"></span></p>
+        <p><strong>End Date:</strong> <span class="js-anime-end-date"></span></p>
+        <p><strong>Episode Count:</strong> <span class="js-anime-episode-count"></span></p>
+        <img class="js-anime-small-cover" src="" alt="Small Cover Image" />
+        <img class="js-anime-small-poster" src="" alt="Large Cover Image" />
+      </div>
+    </div>
+
+    <h2>Pic generator</h2>
+    <button class="js-random-waifu">Waifu</button>
+    <button class="js-category-button" data-category="neko">Neko</button>
+    <button class="js-category-button" data-category="hug">Hug</button>
+    <button class="js-category-button" data-category="smile">Smile</button>
+    <button class="js-category-button" data-category="dance">Dance</button>
+    <img src="" alt="" class="js-img" />
+    <!-- New elements to display artist information -->
+    <div class="js-artist-info">
+      <h2>Artist Information</h2>
+      <p><strong>Name:</strong> <span class="js-artist-name"></span></p>
+      <p><strong>Profile:</strong> <a class="js-artist-href" href="" target="_blank">Visit Profile</a></p>
+      <p><strong>Source URL:</strong> <a class="js-source-url" href="" target="_blank">View Source</a></p>
+    </div>
+    <button class="js-copy-url">Copy URL</button>
+    <p class="js-copy-status">Url Copied</p>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+/* Settings */
+:root {
+  --background-color: #1a1a1a;
+  --primary-text-color: #ffffff;
+  --secondary-text-color: #aaaaaa;
+  --accent-color-1: #7f00ff; /* Dark Purple */
+  --accent-color-2: #a64bff; /* Medium Purple */
+  --accent-color-3: #d98cff; /* Light Purple */
+  --font-family: "Roboto", sans-serif;
+}
+
+/* Tools */
+/* Add utility classes and mixins here */
+
+/* Generic */
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  margin: 0; /* Remove default body margin */
+}
+
+/* Elements */
+/* Basic styles for HTML elements */
+
+/* Objects */
+/* Reusable design patterns */
+
+/* Components */
+/* Specific UI components */
+
+/* Utilities */
+.js-copy-status,
+.js-error-message {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.js-copy-status.show,
+.js-error-message.show {
+  opacity: 1;
+}
+
+/* Search styles */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  color: var(--primary-text-color);
+  flex: 1;
+}
+
+.search-button {
+  border-radius: 50px;
+
+  border: none;
+  background-color: var(--accent-color-1);
+  color: var(--primary-text-color);
+}
+
+/* Dropdown styles */
+.search-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.anime-dropdown {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.dropdown-option {
+  background-color: var(--accent-color-1);
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+/* Trumps */
+/* Helper classes for fine-tuning styles */
+
+/* Navigation styles */
+.navbar {
+  background: rgba(255, 255, 255, 0.2); /* Frosted glass effect */
+  padding: 10px 20px;
+  border-radius: 50px; /* Make it pill-shaped */
+  top: 20px;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  z-index: 1000; /* Ensure the menu is above other elements */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: calc(100% - 40px); /* Adjust the width as needed */
+}
+
+.navbar-logo {
+  width: 5rem;
+  height: 5rem;
+  overflow: hidden;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-link {
+  color: var(--primary-text-color);
+  text-decoration: none;
+  margin-right: 10px; /* Adjust the margin */
+  margin-left: 10px; /* Adjust the margin */
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--accent-color-1);
+}
