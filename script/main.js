@@ -21,14 +21,26 @@ function fetchAnimeDataByCriteria(criteria) {
       const dropdownElement = document.querySelector(".anime-dropdown");
       dropdownElement.innerHTML = "";
 
-      // Create an option for each result
-      data.data.forEach((anime) => {
-        const option = document.createElement("div"); // Changed from 'option' to 'div'
-        option.textContent = anime.attributes.titles.en;
-        option.setAttribute("data-anime-id", anime.id); // Use a unique identifier as the data attribute
-        option.classList.add("dropdown-option"); // Add a class for styling
-        dropdownElement.appendChild(option);
-      });
+// Create an option for each result
+let optionCount = 0; // Counter for the number of options
+data.data.forEach((anime) => {
+  if (optionCount < 5) { // Only create options for the first 5 results
+    const option = document.createElement("div"); // Changed from 'option' to 'div'
+    
+    // Check if titles.en exists, otherwise use titles.en_jp
+    const title = anime.attributes.titles.en ? anime.attributes.titles.en : anime.attributes.titles.en_jp;
+    
+    option.textContent = title;
+    option.setAttribute("data-anime-id", anime.id); // Use a unique identifier as the data attribute
+    option.classList.add("dropdown-option"); // Add a class for styling
+    dropdownElement.appendChild(option);
+    optionCount++; // Increment the counter
+  } else {
+    return; // Break the loop after reaching 5 options
+  }
+});
+
+
 
       // Show the dropdown
       showDropdown();
