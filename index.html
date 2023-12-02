@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Anume</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="css/screen.css" />
+
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
     <script defer src="./script/main.js"></script>
   </head>
   <body>
@@ -24,29 +30,36 @@
     </header>
 
     <div id="page">
-      <section id="home" class="c-animinfo container-fluid">
-        <h2>Anime info retriever</h2>
-
+      <section id="home" class="c-hero container-fluid">
+        <h1>Anume</h1>
+        <a href="#info" class="c-btn"><i class="bi bi-caret-down-fill c-btn--icon"></i></a>
       </section>
-      <section id="info" class="c-animinfo container-fluid justify-content-start border">
-        <h2>Anime info retriever</h2>
-          <div class="search-dropdown-container">
-            <input type="text" id="criteria-input" class="search-input" placeholder="Title" />
-            <div id="anime-dropdown" class="anime-dropdown"></div>
-            <button class="js-fetch-anime search-button"><i class="bi bi-search"></i></button>
-          </div>
-          <p class="js-error-message"></p>
+      
+      <!-- rgba(26, 26, 26, 0.9), -->
 
-        <div class="js-anime-info c-anime-info">
-          <h2>Anime Information</h2>
-          <p><strong>Title:</strong> <span class="js-anime-title"></span></p>
-          <p><strong>Synopsis:</strong> <span class="js-anime-synopsis"></span></p>
-          <p><strong>Rating:</strong> <span class="js-anime-rating"></span></p>
-          <p><strong>Start Date:</strong> <span class="js-anime-start-date"></span></p>
-          <p><strong>End Date:</strong> <span class="js-anime-end-date"></span></p>
-          <p><strong>Episode Count:</strong> <span class="js-anime-episode-count"></span></p>
-          <img class="js-anime-small-cover" src="" alt="Small Cover Image" />
-          <img class="js-anime-small-poster" src="" alt="Large Cover Image" />
+      <section id="info" class="c-animinfo container-fluid justify-content-center js-anime-small-cover" style="background: linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 1)), url(../images/background.jpg)">
+        <h2 class="align-self-center">Anime info retriever</h2>
+        <div class="search-dropdown-container justify-content-center">
+          <input type="text" id="criteria-input" class="search-input" placeholder="Title" />
+          <div id="anime-dropdown" class="anime-dropdown"></div>
+          <button class="js-fetch-anime search-button"><i class="bi bi-search"></i></button>
+        </div>
+        <p class="js-error-message justify-content-center d-flex">Error</p>
+
+        
+
+
+        <div class="js-anime-info c-animeinfo--content container">
+          <div class="card flex-row">
+            <img class="js-anime-small-poster c-animeinfo--content__img card-img-left" src="images/card.jpg" alt="Large Cover Image" />
+            <div class="card-body">
+            <h2 class="c-animeinfo--content__title"><span class="js-anime-title"></span></h2>
+            <p class="c-animeinfo--content__synopsis"><strong>Synopsis:</strong> <span class="js-anime-synopsis"></span></p>
+            <p class="c-animeinfo--content__date"><i class="bi bi-calendar-week"></i> <span class="js-anime-start-date"></span> - <span class="js-anime-end-date"></span></p>
+            <p class="c-animeinfo--content__epcount"><strong>Episode Count:</strong> <span class="js-anime-episode-count"></span></p>
+            <p class="c-animeinfo--content__rating"><span class="js-anime-rating"></span></p>
+            </div>
+          </div>
         </div>
       </section>
       <section id="generator" class="c-picgen container-fluid">

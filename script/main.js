@@ -85,13 +85,29 @@ function fetchAnimeDataByCriteriaButton(criteria) {
       // Save relevant information in variables
       const animeTitle = anime.canonicalTitle;
       const animeSynopsis = anime.synopsis;
-      const animeRating = anime.averageRating;
+      const animeRating = Math.round(anime.averageRating);
       const animeStartDate = anime.startDate;
       const animeEndDate = anime.endDate;
       const animeEpisodeCount = anime.episodeCount;
 
-      const animePosterSmall = anime.posterImage.small;
-      const animeCoverSmall = anime.coverImage.small;
+      // const animePosterSmall = anime.posterImage.small;
+
+      if (anime.posterImage && anime.posterImage.small) {
+        const animePosterSmall = anime.posterImage.small;
+        document.querySelector(".js-anime-small-poster").src = animePosterSmall;
+      } else {
+        // Handle the case when anime.coverImage or anime.coverImage.large is null
+        document.querySelector(".js-anime-small-poster").src = "../images/card.jpg";
+
+      }
+
+      if (anime.coverImage && anime.coverImage.large) {
+        const animeCoverSmall = anime.coverImage.large;
+        document.querySelector(".js-anime-small-cover").style.background = `linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 1)), url(${animeCoverSmall})`;
+      } else {
+        // Handle the case when anime.coverImage or anime.coverImage.large is null
+        document.querySelector(".js-anime-small-cover").style.background = `linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 1)), url(../images/background.jpg)`;
+      }
 
       console.log(animeTitle, animeSynopsis, animeRating, animeStartDate, animeEndDate, animeEpisodeCount);
 
@@ -105,8 +121,9 @@ function fetchAnimeDataByCriteriaButton(criteria) {
       animeInfoElement.querySelector(".js-anime-episode-count").textContent = animeEpisodeCount;
 
       // Update cover images
-      animeInfoElement.querySelector(".js-anime-small-cover").src = animeCoverSmall;
-      animeInfoElement.querySelector(".js-anime-small-poster").src = animePosterSmall;
+      // if (animePosterSmall !== null) {
+      // animeInfoElement.querySelector(".js-anime-small-poster").src = animePosterSmall;
+      // }
     })
     .catch((error) => {
       console.error("Error fetching anime data:", error);
@@ -191,7 +208,7 @@ fetchAnimeButton.addEventListener("click", () => {
 
   // Clear previous error messages
   const errorElement = document.querySelector(".js-error-message");
-  errorElement.textContent = "";
+  errorElement.textContent = "Error";
   errorElement.classList.remove("show");
 
   // Fetch anime data based on the criteria
