@@ -21,26 +21,25 @@ function fetchAnimeDataByCriteria(criteria) {
       const dropdownElement = document.querySelector(".anime-dropdown");
       dropdownElement.innerHTML = "";
 
-// Create an option for each result
-let optionCount = 0; // Counter for the number of options
-data.data.forEach((anime) => {
-  if (optionCount < 5) { // Only create options for the first 5 results
-    const option = document.createElement("div"); // Changed from 'option' to 'div'
-    
-    // Check if titles.en exists, otherwise use titles.en_jp
-    const title = anime.attributes.titles.en ? anime.attributes.titles.en : anime.attributes.titles.en_jp;
-    
-    option.textContent = title;
-    option.setAttribute("data-anime-id", anime.id); // Use a unique identifier as the data attribute
-    option.classList.add("dropdown-option"); // Add a class for styling
-    dropdownElement.appendChild(option);
-    optionCount++; // Increment the counter
-  } else {
-    return; // Break the loop after reaching 5 options
-  }
-});
+      // Create an option for each result
+      let optionCount = 0; // Counter for the number of options
+      data.data.forEach((anime) => {
+        if (optionCount < 5) {
+          // Only create options for the first 5 results
+          const option = document.createElement("div"); // Changed from 'option' to 'div'
 
+          // Check if titles.en exists, otherwise use titles.en_jp
+          const title = anime.attributes.titles.en ? anime.attributes.titles.en : anime.attributes.titles.en_jp;
 
+          option.textContent = title;
+          option.setAttribute("data-anime-id", anime.id); // Use a unique identifier as the data attribute
+          option.classList.add("dropdown-option"); // Add a class for styling
+          dropdownElement.appendChild(option);
+          optionCount++; // Increment the counter
+        } else {
+          return; // Break the loop after reaching 5 options
+        }
+      });
 
       // Show the dropdown
       showDropdown();
@@ -80,25 +79,21 @@ function fetchAnimeDataByCriteriaButton(criteria) {
 
       // Process the data as needed
       const anime = data.data[0].attributes; // Take the first result
-      console.log(anime);
 
       // Save relevant information in variables
       const animeTitle = anime.canonicalTitle;
       const animeSynopsis = anime.synopsis;
       const animeRating = Math.round(anime.averageRating);
       const animeStartDate = anime.startDate;
-      const animeEndDate = anime.endDate;
-      const animeEpisodeCount = anime.episodeCount;
-
-      // const animePosterSmall = anime.posterImage.small;
+      const animeEndDate = anime.endDate ?? "Ongoing";
+      const animeEpisodeCount = anime.episodeCount ?? "Ongoing";
 
       if (anime.posterImage && anime.posterImage.small) {
         const animePosterSmall = anime.posterImage.small;
         document.querySelector(".js-anime-small-poster").src = animePosterSmall;
       } else {
         // Handle the case when anime.coverImage or anime.coverImage.large is null
-        document.querySelector(".js-anime-small-poster").src = "../images/card.jpg";
-
+        document.querySelector(".js-anime-small-poster").src = "../images/card.png";
       }
 
       if (anime.coverImage && anime.coverImage.large) {
@@ -106,13 +101,12 @@ function fetchAnimeDataByCriteriaButton(criteria) {
         document.querySelector(".js-anime-small-cover").style.background = `linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 1)), url(${animeCoverSmall})`;
       } else {
         // Handle the case when anime.coverImage or anime.coverImage.large is null
-        document.querySelector(".js-anime-small-cover").style.background = `linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 1)), url(../images/background.jpg)`;
+        document.querySelector(".js-anime-small-cover").style.background = `linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 1)), url(images/background.jpg)`;
       }
-
-      console.log(animeTitle, animeSynopsis, animeRating, animeStartDate, animeEndDate, animeEpisodeCount);
 
       // Update each element with the corresponding animeInfo value
       const animeInfoElement = document.querySelector(".js-anime-info");
+      const card = document.querySelector(".js-card");
       animeInfoElement.querySelector(".js-anime-title").textContent = animeTitle;
       animeInfoElement.querySelector(".js-anime-synopsis").textContent = animeSynopsis;
       animeInfoElement.querySelector(".js-anime-rating").textContent = animeRating;
@@ -120,10 +114,19 @@ function fetchAnimeDataByCriteriaButton(criteria) {
       animeInfoElement.querySelector(".js-anime-end-date").textContent = animeEndDate;
       animeInfoElement.querySelector(".js-anime-episode-count").textContent = animeEpisodeCount;
 
-      // Update cover images
-      // if (animePosterSmall !== null) {
-      // animeInfoElement.querySelector(".js-anime-small-poster").src = animePosterSmall;
-      // }
+      card.classList.add("show");
+
+      const ratingBubble = document.querySelector(".js-ratingBubble");
+
+      if (animeRating >= 75 && animeRating <= 100) {
+        ratingBubble.style.backgroundColor = "var(--accent-color-1)"; // Dark Purple for 75-100
+      } else if (animeRating >= 50 && animeRating < 75) {
+        ratingBubble.style.backgroundColor = "var(--accent-color-2)"; // Medium Purple for 50-75
+      } else if (animeRating >= 25 && animeRating < 50) {
+        ratingBubble.style.backgroundColor = "var(--accent-color-3)"; // Light Purple for 25-50
+      } else if (animeRating >= 0 && animeRating < 25) {
+        ratingBubble.style.backgroundColor = "var(--accent-color-4)"; // Another Purple for 0-25
+      }
     })
     .catch((error) => {
       console.error("Error fetching anime data:", error);
@@ -254,20 +257,37 @@ function fetchAndDisplayImage(apiUrl) {
       waifuImages.forEach((waifuImage) => {
         // Extracting data from the JSON
         const firstResult = data.results[0];
-        const artistHref = firstResult.artist_href;
-        const artistName = firstResult.artist_name;
+        const artistHref = firstResult.artist_href ?? "Not found";
+        const artistName = firstResult.artist_name ?? firstResult.anime_name;
         const sourceUrl = firstResult.source_url;
         const imageUrl = firstResult.url;
+        const card = document.querySelector(".js-artist");
 
         waifuImage.src = imageUrl;
         waifuImage.alt = "Waifu Image";
+
         // Store the image URL in a variable for copy
         imageUrlCopy = imageUrl;
 
         // Update the artist information in the frontend
+        card.classList.add("show");
         const artistNameElement = document.querySelector(".js-artist-name");
         const artistHrefElement = document.querySelector(".js-artist-href");
         const sourceUrlElement = document.querySelector(".js-source-url");
+        const cardTitle = document.querySelector(".js-artist-title");
+        const cardText = document.querySelectorAll(".js-card-text");
+
+        cardText.forEach((cardText) => {
+          if (artistName === firstResult.artist_name) {
+            cardTitle.textContent = "Artist Information";
+            cardText.classList.add("show");
+            cardText.classList.remove("hide");
+          } else {
+            cardTitle.textContent = "Anime Information";
+            cardText.classList.remove("show");
+            cardText.classList.add("hide");
+          }
+        });
 
         artistNameElement.textContent = artistName;
         artistHrefElement.href = artistHref;
@@ -295,14 +315,14 @@ function copyImageUrlToClipboard() {
 }
 
 function showCopyStatus() {
-  const copyStatus = document.querySelector(".js-copy-status");
+  const copyStatus = document.querySelector(".js-copy");
 
   // Add the 'show' class to trigger the transition
-  copyStatus.classList.add("show");
+  copyStatus.classList.add("fa-fade");
 
   // Clear the 'show' class after the transition ends
   setTimeout(() => {
-    copyStatus.classList.remove("show");
+    copyStatus.classList.remove("fa-fade");
   }, 3000); // Clear the message after 3 seconds
 }
 
@@ -324,8 +344,48 @@ const copyUrlButton = document.querySelector(".js-copy-url");
 let imageUrl = ""; // Variable to store the current image URL
 copyUrlButton.addEventListener("click", copyImageUrlToClipboard);
 
+function nav() {
+  var header = document.getElementById("myHeader");
+  var page = document.querySelector(".js-page");
+  var openMenuButton = document.getElementById("openmenu");
+
+  window.addEventListener("scroll", function () {
+    page.classList.remove("menuopen");
+    if (window.scrollY >= 100) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  });
+
+  // Event listener to remove the sticky class when the button is clicked
+  openMenuButton.addEventListener("click", function () {
+    header.classList.remove("sticky");
+  });
+
+  var links = document.querySelectorAll('a[href^="#"]');
+
+  links.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      // Prevent the default action
+      event.preventDefault();
+
+      // Get the target element
+      var targetId = this.getAttribute("href");
+      var targetElement = document.querySelector(targetId);
+
+      // Smooth scroll to target
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    });
+  });
+}
+
 function init() {
-  console.log("DOMContentLoaded");
+  nav();
 
   /*load pic at page start*/
   getRandomWaifu();
