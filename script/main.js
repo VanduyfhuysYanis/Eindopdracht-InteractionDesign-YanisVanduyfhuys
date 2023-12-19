@@ -386,7 +386,6 @@ function nav() {
 
 function init() {
   nav();
-
   /*load pic at page start*/
   getRandomWaifu();
 }

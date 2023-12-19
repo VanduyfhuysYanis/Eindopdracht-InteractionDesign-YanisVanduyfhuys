@@ -30,15 +30,15 @@
     <div class="js-page c-page">
       <!-- Hero -->
       <section id="home" class="c-hero container-fluid">
-          <h1 class="fade-in">Anume</h1>
-          <h2 class="fade-in-2 text-center">Explore the World of Anime</h2>
-          <a href="#info" class="c-btn fade-in-3 overflow-hidden" title="To content"><i class="fa-solid fa-caret-down"></i></a>
+        <h1 class="fade-in">Anume</h1>
+        <h2 class="fade-in-2 text-center">Explore the World of Anime</h2>
+        <a href="#info" class="c-btn fade-in-3 overflow-hidden" title="To content"><i class="fa-solid fa-caret-down"></i></a>
       </section>
 
       <!-- Info retriever -->
       <section id="info" class="c-animinfo container-fluid justify-content-center js-anime-small-cover" style="background: linear-gradient(0deg, rgba(26, 26, 26, 0.2), rgba(26, 26, 26, 1)), url(images/background.jpg)">
         <h2 class="text-center">Anime Info Retriever</h2>
-        <div class="search-dropdown-container justify-content-center">
+        <div class="search-dropdown-container container justify-content-center">
           <input type="text" id="criteria-input" class="search-input" placeholder="Enter Anime Title" />
           <div id="anime-dropdown" class="mt-3 anime-dropdown"></div>
           <button class="js-fetch-anime search-button" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -75,7 +75,7 @@
               <!-- Font Awesome icon for fullscreen -->
               <button class="js-copy-url c-btn--purple"><i class="js-copy fa-solid fa-copy"></i></button>
             </div>
-            <img class="js-img c-picgen__img js-fullscreen" src="images/card.png" alt="Pic generator" />
+            <img class="js-img js-expand c-picgen__img" src="images/card.png" alt="Pic generator" onclick="full_view(this);" />
             <div class="card-body js-artist">
               <h2 class="js-artist-title">Artist Information</h2>
               <p><strong>Name:</strong> <span class="js-artist-name"></span></p>
@@ -84,8 +84,6 @@
             </div>
           </div>
         </div>
-      </section>
-    </div>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
